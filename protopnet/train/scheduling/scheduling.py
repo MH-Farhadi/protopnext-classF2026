@@ -360,13 +360,6 @@ class ClassificationInferencePhase(_NoGradPhaseMixin):
         for loss_term_item, value in loss_term_dict.items():
             init_or_update(epoch_metrics_dict, loss_term_item, value)
 
-        init_or_update(
-            epoch_metrics_dict,
-            "accu",
-            float(epoch_metrics_dict["n_correct"])
-            / float(epoch_metrics_dict["n_examples"]),
-        )
-
         return output, loss
 
     def _pre_dataloader_step_init(self, model: ProtoPNet, step_context: StepContext):
@@ -417,7 +410,6 @@ class ClassificationInferencePhase(_NoGradPhaseMixin):
             "cluster",
             "separation",
             "fine_annotation",
-            "accu",
         ]
 
         for k, v in epoch_metrics_dict.items():
@@ -437,7 +429,9 @@ class ClassificationInferencePhase(_NoGradPhaseMixin):
 
                 final_metrics[k] = value
 
-        final_metrics["accuracy"] = final_metrics["accu"]
+        # Accuracy of the whole epoch: correct predictions / examples
+        accuracy = final_metrics["n_correct"] / final_metrics["n_examples"]
+        final_metrics["accu"] = final_metrics["accuracy"] = accuracy
 
         return final_metrics
 
