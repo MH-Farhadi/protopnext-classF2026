@@ -2,8 +2,6 @@ import logging
 
 import click
 
-
-
 from .train.scheduling.lr_schedules import JOINT_LR_SCHEDULES
 
 log = logging.getLogger(__name__)
@@ -20,6 +18,7 @@ joint_lr_schedule_option = click.option(
         "decay in every joint phase; 'cosine' anneals the rate within every joint phase."
     ),
 )
+
 
 def common_training_options(f):
     """Common options for training commands."""

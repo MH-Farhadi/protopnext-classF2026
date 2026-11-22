@@ -593,8 +593,6 @@ class ClassificationBackpropPhase(ClassificationInferencePhase):
         scheduler: Optional[
             Union[torch.optim.lr_scheduler._LRScheduler, PhaseRestartingLR]
         ] = None,
-
-
         set_training_layers_fn: SetTrainingLayers = TrainOptimizerLayers(),
         num_accumulation_batches: int = 1,
         post_forward_calculations: Optional[Tuple[PostForwardCalculation]] = None,
@@ -632,9 +630,7 @@ class ClassificationBackpropPhase(ClassificationInferencePhase):
     @property
     def num_accumulation_batches(self) -> int:
         return self._num_accumulation_batches
-        
-        
-        
+
     def before_training(
         self,
         model: ProtoPNet,

@@ -162,8 +162,6 @@ Training alternates between multiple phases:
 - **Project**: Update prototypes to match training examples
 - **Last-only**: Train only the classification head
 
-
-
 All joint phases share one optimizer. For ProtoPNet and TesNet, `--joint-lr-schedule` sets how its learning rate changes:
 
 - `step` (default): one step decay that continues from one joint phase to the next, so every joint phase starts at a lower rate (as in the original ProtoPNet).
@@ -193,12 +191,10 @@ python -m protopnet eval models.csv --dataset cub200 --output results.csv
 
 # Generate visualizations
 python -m protopnet visualization model.pth --dataset cub200
-```
-
-
 
 # Anneal the joint learning rate within every joint phase (default: step)
 python -m protopnet train-protopnet --dataset cub200 --joint-lr-schedule cosine
+```
 
 ## Datasets
 
